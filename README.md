@@ -6,6 +6,8 @@ osm2pgsql docker iamge
 
 ## Usage
 
+[![Join the chat at https://gitter.im/OsmHackTW/osm2pgsql-docker](https://badges.gitter.im/OsmHackTW/osm2pgsql-docker.svg)](https://gitter.im/OsmHackTW/osm2pgsql-docker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
     POSTGIS_INSTANCE="osm-postgis"
     COUNTRY="taiwan"
     [ ! -f osm/${COUNTRY}-latest.osm.pbf ] && mkdir osm && cd osm && http://download.geofabrik.de/asia/${COUNTRY}-latest.osm.pbf
