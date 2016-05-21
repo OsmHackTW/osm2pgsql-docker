@@ -1,12 +1,13 @@
 osm2pgsql docker iamge
 
 
+[![Join the chat at https://gitter.im/OsmHackTW/osm2pgsql-docker](https://badges.gitter.im/OsmHackTW/osm2pgsql-docker.svg)](https://gitter.im/OsmHackTW/osm2pgsql-docker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## Version
 - Ubuntu 16.04
 - osm2pgsql 0.90.0
 
 ## Usage
-
-[![Join the chat at https://gitter.im/OsmHackTW/osm2pgsql-docker](https://badges.gitter.im/OsmHackTW/osm2pgsql-docker.svg)](https://gitter.im/OsmHackTW/osm2pgsql-docker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
     POSTGIS_INSTANCE="osm-postgis"
     COUNTRY="taiwan"
