@@ -7,7 +7,9 @@ RUN sed -e s%http://archive.ubuntu.com/ubuntu/%mirror://mirrors.ubuntu.com/mirro
         && apt-get dist-upgrade -y \
         && apt-get install -y vim
 
-ENV OSM2PGSQL_VERSION=0.88.1-1
+ENV OSM2PGSQL_VERSION=0.88.1-1 \
+    OSMCTOOLS_VERSION=0.6-1
 
-RUN apt-get install -y osm2pgsql=${OSM2PGSQL_VERSION} \
-        && rm -rf /var/lib/apt/lists/*
+RUN apt-get install -y osm2pgsql=${OSM2PGSQL_VERSION} osmctools=${OSMCTOOLS_VERSION} \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
