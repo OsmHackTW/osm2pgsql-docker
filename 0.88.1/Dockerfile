@@ -13,3 +13,7 @@ ENV OSM2PGSQL_VERSION=0.88.1-1 \
 RUN apt-get install -y osm2pgsql=${OSM2PGSQL_VERSION} osmctools=${OSMCTOOLS_VERSION} \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+
+# osm replication script
+ADD ./osm-importer.sh /usr/local/bin/osm-importer.sh
+ENTRYPOINT ["/usr/local/bin/osm-importer.sh"]
