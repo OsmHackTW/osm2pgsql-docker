@@ -9,9 +9,20 @@ osm2pgsql docker iamge
 
 ## Usage
 
-    POSTGIS_INSTANCE="osm-postgis"
-    COUNTRY="taiwan"
-    [ ! -f osm/${COUNTRY}-latest.osm.pbf ] && mkdir osm && cd osm && http://download.geofabrik.de/asia/${COUNTRY}-latest.osm.pbf
+See postgis.sh & run.sh as example. You must run a postgres/postgis server, and name it's alias as pg.
 
-    docker run -i -t --rm --link ${POSTGIS_INSTANCE}:pg -v `pwd`/osm:/osm -e PG_ENV_OSM_DB=postgres -e PG_ENV_OSM_USER=postgres -e COUNTRY=${COUNTRY} osmtw/osm2pgsql -c \
-        'PGPASSWORD=$PG_ENV_POSTGRES_PASSWORD osm2pgsql --create --slim --cache 2000 --database $PG_ENV_OSM_DB --username $PG_ENV_OSM_USER --host pg --port $PG_PORT_5432_TCP_PORT /osm/${COUNTRY}-latest.osm.pbf'
+    POSTGIS_INSTANCE="osmdb"
+    REGION="asia/taiwan"
+    DATADIR=/osm
+    LOOP=600
+    VERSION="0.88.1"
+    
+    docker run -t -i --rm \
+        --link ${POSTGIS_INSTANCE}:pg \
+        -e REGION=$REGION \
+        -e DATADIR=$DATADIR \
+        -e LOOP=$LOOP \
+        -v ${POSTGIS_INSTANCE}-volume:$DATADIR \
+        --name osm2pgsql \
+        osmtw/osm2pgsql:${VERSION}
+
