@@ -23,13 +23,22 @@ RUN apt-get install -y \
         libgeos++-dev \
         libproj-dev \
         lua5.2 \
-        liblua5.2-dev && \
-        rm -rf /var/lib/apt/lists/*
+        liblua5.2-dev
 
-ENV OSM2PGSQL_VERSION 0.90.0
+ENV OSM2PGSQL_VERSION=0.90.0 \
+    OSMCTOOLS_VERSION=0.6-1
+
+# osm2pgsql
 RUN cd /root && git clone --depth 1 --branch $OSM2PGSQL_VERSION https://github.com/openstreetmap/osm2pgsql.git && \
     mkdir -p osm2pgsql/build && \
     cd osm2pgsql/build  && \
     cmake .. && make install
 
-ENTRYPOINT ["/bin/bash"]
+# osmctools && clean up
+RUN apt-get install -y osmctools=${OSMCTOOLS_VERSION} postgresql-client-9.5 \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+# osm replication script
+ADD ./osm-importer.sh /usr/local/bin/osm-importer.sh
+ENTRYPOINT ["/bin/bash", "-i", "/usr/local/bin/osm-importer.sh"]
