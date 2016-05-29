@@ -26,7 +26,7 @@ EOF
 exit 1
 fi
 
-importosm () {
+function importosm () {
     # ping database.
     echo "SELECT 1;" | PGPASSWORD=$PG_ENV_POSTGRES_PASSWORD \
         psql --no-password \
@@ -34,28 +34,26 @@ importosm () {
         -U $PG_ENV_POSTGRES_USER $PG_ENV_POSTGRES_DB \
     || return $?
 
-    UPDATEPBF=$(mktemp -p $DATADIR)
-    if [ ! -f ${COUNTRY}-latest.osm.pbf ] ; then
+    UPDATEPBF=$(mktemp -p $DATADIR XXX.pbf)
+    if [ ! -f ${PBF} ] ; then
         wget -O "${UPDATEPBF}" http://download.geofabrik.de/${REGION}-latest.osm.pbf \
-            || return 1
-        mv -v $UPDATEPBF $PBF
+            || return $?
     else
-        osmupdate -v --base-url=download.geofabrik.de/asia/taiwan-updates  $PBF $UPDATEPBF \
-            || return 1
-        mv -v $UPDATEPBF $PBF
+        osmupdate -v --base-url=download.geofabrik.de/${REGION}-updates "$PBF" "$UPDATEPBF" \
+            || return $?
     fi
-
+    trap "Importing in progress, ignored SIGINT & SIGTERM." SIGINT SIGTERM
     PGPASSWORD=$PG_ENV_POSTGRES_PASSWORD \
         osm2pgsql --create --slim --cache 2000 \
         --host $PG_PORT_5432_TCP_ADDR \
         --database $PG_ENV_POSTGRES_DB \
         --username $PG_ENV_POSTGRES_USER \
         --port $PG_PORT_5432_TCP_PORT \
-        $PBF
+        $UPDATEPBF && mv -v $UPDATEPBF $PBF
 }
 
 while : ; do
     importosm
     [ $LOOP -eq 0 ] && exit $?
-    sleep $LOOP
+    sleep $LOOP || exit
 done

@@ -16,4 +16,4 @@ RUN apt-get install -y osm2pgsql=${OSM2PGSQL_VERSION} osmctools=${OSMCTOOLS_VERS
 
 # osm replication script
 ADD ./osm-importer.sh /usr/local/bin/osm-importer.sh
-ENTRYPOINT ["/usr/local/bin/osm-importer.sh"]
+ENTRYPOINT ["/bin/bash", "-i", "/usr/local/bin/osm-importer.sh"]
