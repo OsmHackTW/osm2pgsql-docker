@@ -6,6 +6,7 @@ echo COUNTRY=${COUNTRY:=$(basename $REGION)}
 echo DATADIR=${DATADIR:="/osm"}
 echo PBF=${PBF:=$DATADIR/${COUNTRY}-latest.osm.pbf}
 echo LOOP=${LOOP:=600}
+HOST=download.geofabrik.de
 
 [ -d $DATADIR ] || (echo "$DATADIR not found" && exit -1)
 
@@ -36,10 +37,10 @@ function importosm () {
 
     UPDATEPBF=$(mktemp -p $DATADIR XXX.pbf)
     if [ ! -f ${PBF} ] ; then
-        wget -O "${UPDATEPBF}" http://download.geofabrik.de/${REGION}-latest.osm.pbf \
+        wget -O "${UPDATEPBF}" http://$HOST/${REGION}-latest.osm.pbf \
             || return $?
     else
-        osmupdate -v --base-url=download.geofabrik.de/${REGION}-updates "$PBF" "$UPDATEPBF" \
+        osmupdate -v --base-url=$HOST/${REGION}-updates "$PBF" "$UPDATEPBF" \
             || return $?
     fi
     trap "Importing in progress, ignored SIGINT & SIGTERM." SIGINT SIGTERM
