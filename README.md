@@ -1,8 +1,8 @@
 # osm2pgsql docker iamge
 
-## Software version
-- Ubuntu 16.04
-- osm2pgsql 0.90.0
+- a importer script using the following software to help you maintain the latst osm replication
+    - [osm2pgsql](https://github.com/openstreetmap/osm2pgsql)
+    - [osmupdate](http://wiki.openstreetmap.org/wiki/Osmupdate)
 
 ## Usage
 
