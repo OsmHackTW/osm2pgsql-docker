@@ -1,4 +1,4 @@
-# osm2pgsql docker iamge
+# osm2pgsql docker image
 
 - a importer script using the following software to help you maintain the latst osm replication
     - [osm2pgsql](https://github.com/openstreetmap/osm2pgsql)
