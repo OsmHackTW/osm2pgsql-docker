@@ -8,7 +8,7 @@
 
 See postgis.sh & run.sh as example. You must run a postgres/postgis server, and name it's alias as pg.
 
-```{r, engine='bash'}
+```sh
 #!/bin/sh
 # Run a postgres/postgis instance
 POSTGRES_USER=postgres
