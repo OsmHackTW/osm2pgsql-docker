@@ -2,10 +2,10 @@ FROM ubuntu:xenial
 MAINTAINER Rex Tsai <rex.cc.tsai@gmail.com>
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN sed -e s%http://archive.ubuntu.com/ubuntu/%mirror://mirrors.ubuntu.com/mirrors.txt% -i /etc/apt/sources.list \
-        && apt-get update \
-        && apt-get dist-upgrade -y \
-        && apt-get install -y vim
+RUN sed -e s%http://archive.ubuntu.com/ubuntu/%mirror://mirrors.ubuntu.com/mirrors.txt% -i /etc/apt/sources.list
+RUN apt-get update \
+ && apt-get dist-upgrade -y \
+ && apt-get install -y vim
 
 RUN apt-get install -y \
         make \
@@ -41,4 +41,5 @@ RUN apt-get install -y osmctools=${OSMCTOOLS_VERSION} postgresql-client-9.5 \
 
 # osm replication script
 ADD ./osm-importer.sh /usr/local/bin/osm-importer.sh
-ENTRYPOINT ["/bin/bash", "-i", "/usr/local/bin/osm-importer.sh"]
+WORKDIR /osm
+CMD ["/bin/bash", "-i", "/usr/local/bin/osm-importer.sh"]
