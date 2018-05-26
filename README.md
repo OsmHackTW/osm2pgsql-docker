@@ -25,7 +25,7 @@ docker run --name ${POSTGIS_INSTANCE} \
 REGION="asia/taiwan"
 DATADIR=/osm
 LOOP=600
-VERSION="0.88.1"
+VERSION="0.96.0"
 # run the osm2pgsql instance
 # The osm-importer.sh script will run osmupdate every 600 seconds,
 # to pull latest osm data from
