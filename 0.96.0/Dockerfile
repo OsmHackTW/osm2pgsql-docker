@@ -1,5 +1,5 @@
-FROM ubuntu:xenial
-MAINTAINER Rex Tsai "https://about.me/chihchun"
+FROM ubuntu:bionic
+MAINTAINER typebrook "typebrook@gmail.com"
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN sed -e s%http://archive.ubuntu.com/ubuntu/%mirror://mirrors.ubuntu.com/mirrors.txt% -i /etc/apt/sources.list
@@ -26,7 +26,7 @@ RUN apt-get install -y \
         liblua5.2-dev
 
 ENV OSM2PGSQL_VERSION=0.96.0 \
-    OSMCTOOLS_VERSION=0.6-1
+    OSMCTOOLS_VERSION=0.8-1
 
 # osm2pgsql
 RUN cd /tmp && git clone --depth 1 --branch $OSM2PGSQL_VERSION https://github.com/openstreetmap/osm2pgsql.git && \
@@ -35,7 +35,7 @@ RUN cd /tmp && git clone --depth 1 --branch $OSM2PGSQL_VERSION https://github.co
     cmake .. && make install
 
 # osmctools && clean up
-RUN apt-get install -y osmctools=${OSMCTOOLS_VERSION} postgresql-client-9.5 \
+RUN apt-get install -y osmctools=${OSMCTOOLS_VERSION} postgresql-client-10 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
