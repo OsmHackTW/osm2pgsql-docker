@@ -32,7 +32,8 @@ ENV OSM2PGSQL_VERSION=0.96.0 \
 RUN cd /tmp && git clone --depth 1 --branch $OSM2PGSQL_VERSION https://github.com/openstreetmap/osm2pgsql.git && \
     mkdir -p osm2pgsql/build && \
     cd osm2pgsql/build  && \
-    cmake .. && make install
+    cmake .. && make install \
+    rm -rf /tmp/osm2pgsql
 
 # osmctools && clean up
 RUN apt-get install -y osmctools=${OSMCTOOLS_VERSION} postgresql-client-10 \
