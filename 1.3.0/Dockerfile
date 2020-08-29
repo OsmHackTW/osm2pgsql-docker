@@ -25,7 +25,7 @@ RUN apt-get install -y \
         lua5.2 \
         liblua5.2-dev
 
-ENV OSM2PGSQL_VERSION=0.96.0 \
+ENV OSM2PGSQL_VERSION=1.3.0 \
     OSMCTOOLS_VERSION=0.8-1
 
 # osm2pgsql

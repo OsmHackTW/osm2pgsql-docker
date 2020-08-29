@@ -3,7 +3,7 @@ POSTGIS_INSTANCE=${1:-"osmdb"}
 REGION=${2:-"asia/taiwan"}
 DATADIR=/osm
 LOOP=600
-VERSION=${3:-"0.96.0"}
+VERSION=${3:-"1.3.0"}
 
 docker run -t -i --rm \
     --link ${POSTGIS_INSTANCE}:pg \
